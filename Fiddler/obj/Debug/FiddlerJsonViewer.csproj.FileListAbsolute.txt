@@ -1,0 +1,1 @@
+E:\BaseSite\jsonviewer\Fiddler\obj\Debug\FiddlerJsonViewer.csprojResolveAssemblyReference.cache
