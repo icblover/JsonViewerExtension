@@ -28,12 +28,12 @@ namespace EPocalipse.Json.Viewer
             InitializeComponent();
             try
             {
-                _pluginsManager.Initialize();
+                _pluginsManager.Initialize();                
             }
             catch (Exception e)
             {
                 MessageBox.Show(String.Format(Resources.ConfigMessage, e.Message), "Json Viewer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            }            
         }
 
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
@@ -186,7 +186,7 @@ namespace EPocalipse.Json.Viewer
             lblError.Text = info;
             lblError.Tag = null;
             lblError.Enabled = false;
-            tabControl.SelectedTab = pageTextView;
+            //tabControl.SelectedTab = pageTextView;
         }
 
         public void ShowInfo(ErrorDetails error)
@@ -195,7 +195,7 @@ namespace EPocalipse.Json.Viewer
             lblError.Text = error.Error;
             lblError.Tag = error;
             lblError.Enabled = true;
-            tabControl.SelectedTab = pageTextView;
+            //tabControl.SelectedTab = pageTextView;
         }
 
         public void ClearInfo()
@@ -698,8 +698,77 @@ namespace EPocalipse.Json.Viewer
         private void btn_Sort_Click(object sender, EventArgs e)
         {
             List<ParameterPair> list = TomKluas.SortUrl(txt_ToSortUrl.Text.Trim());
-            querylist.DataSource = list;
+            querylist.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            //querylist.AutoResizeColumns();
+            querylist.DataSource = list;            
             lbl_Row.Text = list.Count.ToString() + " Rows";
+        }
+
+        private void txt_RawUrl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A && e.Control)
+            {
+                txt_RawUrl.SelectAll();
+            }
+        }
+
+        private void querylist_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string s = querylist.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            if (s.Contains("%"))
+            {
+                querylist.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = TomKluas.DecodeOnce(s);     
+            }
+        }
+
+        private void txt_ToSortUrl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A && e.Control)
+            {
+                txt_ToSortUrl.SelectAll();
+            }
+        }
+
+        private void GetWebString_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EPocalipse.Json.Viewer.WebClient client = new EPocalipse.Json.Viewer.WebClient();
+                switch (ddl_item.SelectedIndex)
+                {
+                    case 0:
+                        client.Encoding = Encoding.Default;
+                        break;
+                    default:
+                        client.Encoding = Encoding.UTF8;
+                        break;
+                }
+                txt_GetHTML.Text = client.GetHtml(txt_Url.Text);
+                EventDelegate();  
+            }
+            catch (Exception ex)
+            {
+                txt_GetHTML.Text = ex.Message.ToString();
+            }                      
+        }
+
+        private void EventDelegate()
+        {
+            txt_RawUrl.Text = txt_Url.Text;
+            btn_Decode_Click(new object(), new EventArgs());
+            btn_Sort_Click(new object(), new EventArgs());
+            txtJson.Text = txt_GetHTML.Text;
+            btnStripToCurly_Click(new object(), new EventArgs());
+            btnFormat_Click(new object(), new EventArgs());
+            txtJson_TextChanged(new object(), new EventArgs());
+        }
+
+        private void txt_GetHTML_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.A && e.Control)
+            {
+                txt_GetHTML.SelectAll();
+            }
         }
     }
 
@@ -813,5 +882,5 @@ namespace EPocalipse.Json.Viewer
         }
     }
 
-    public enum Tabs { Viewer, Text };
+    public enum Tabs { Viewer, Text, Sort, UrlView };
 }

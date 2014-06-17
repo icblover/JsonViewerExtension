@@ -9,3 +9,13 @@ E:\BaseSite\jsonviewer\JsonViewer\obj\Debug\JsonViewer.csproj.GenerateResource.C
 E:\BaseSite\jsonviewer\JsonViewer\obj\Debug\JsonViewer.dll
 E:\BaseSite\jsonviewer\JsonViewer\obj\Debug\JsonViewer.pdb
 E:\BaseSite\jsonviewer\JsonViewer\obj\Debug\JsonViewer.csprojResolveAssemblyReference.cache
+E:\test project\JsonViewerExtension\JsonViewer\bin\Debug\JsonViewer.dll
+E:\test project\JsonViewerExtension\JsonViewer\bin\Debug\JsonViewer.pdb
+E:\test project\JsonViewerExtension\JsonViewer\bin\Debug\Newtonsoft.Json.dll
+E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\EPocalipse.Json.Viewer.GridVisualizer.resources
+E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\EPocalipse.Json.Viewer.JsonViewer.resources
+E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\EPocalipse.Json.Viewer.JsonObjectVisualizer.resources
+E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\EPocalipse.Json.Viewer.Properties.Resources.resources
+E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\JsonViewer.csproj.GenerateResource.Cache
+E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\JsonViewer.dll
+E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\JsonViewer.pdb

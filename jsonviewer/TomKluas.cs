@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace EPocalipse.Json.Viewer
+
 {
     public class TomKluas
     {
+        public static int DecodeCount { get; set; }
         public static string LastUrl { get; set; }
 
         public static string Decode(string url)
@@ -37,26 +40,50 @@ namespace EPocalipse.Json.Viewer
 
         public static List<ParameterPair> SortUrl(string urlStr)
         {
-            if (!urlStr.Contains("?") && !urlStr.Contains("#"))
+            try
             {
-                urlStr = "localhost?" + urlStr;
-            }
-            Uri url = new Uri(urlStr);
-            List<ParameterPair> list = new List<ParameterPair>();
-            string[] queryString = url.Query.Length > 1 ? url.Query.Substring(1).Split('&') : null;
-            foreach (var keyValue in queryString)
-            {
-                if (!string.IsNullOrEmpty(keyValue) && !keyValue.StartsWith("_") && !keyValue.StartsWith("jsoncallback"))
+                if (!urlStr.Contains("?") && !urlStr.Contains("#") && !Regex.IsMatch(urlStr, @"((https|http)\:\/\/)?([\w\-_]+\.)?([\w\-_]+\.)[\w\-_]+\.(com|cn|net|me|biz|cn|info|name|tv|cc|so|mobi|tel|asia|co|org)"))
                 {
-                    list.Add(new ParameterPair
-                    {
-                        Key = keyValue.Split('=')[0],
-                        Value = keyValue.Split('=')[1]
-                    });
+                    urlStr = "localhost?" + urlStr;
                 }
+                Uri url = new Uri(urlStr);
+                List<ParameterPair> list = new List<ParameterPair>();
+                string[] queryString = url.Query.Length > 1 ? url.Query.Substring(1).Split('&') : null;
+                foreach (var keyValue in queryString)
+                {
+                    if (!string.IsNullOrEmpty(keyValue) && !keyValue.StartsWith("_") && !keyValue.StartsWith("jsoncallback"))
+                    {
+                        if (keyValue.Contains("="))
+                        {
+                            list.Add(new ParameterPair
+                            {
+                                Key = keyValue.Split('=')[0],
+                                Value = keyValue.Split('=')[1]
+                            });    
+                        }
+                        else
+                        {
+                            list.Add(new ParameterPair
+                            {
+                                Key = keyValue,
+                                Value = string.Empty
+                            });
+                        }
+                    }
+                }
+                if (list.Count>0)
+                {
+                    list = (from p in list orderby p.Key select p).ToList<ParameterPair>();    
+                }                
+                return list;
             }
-            list = (from p in list orderby p.Key select p).ToList<ParameterPair>();
-            return list;
+            catch (Exception ex)
+            {
+                return new List<ParameterPair>{new ParameterPair{
+                    Key="error",Value=ex.ToString()
+                }};
+            }
+            
         }
     }
 

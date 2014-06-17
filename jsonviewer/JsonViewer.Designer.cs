@@ -31,6 +31,7 @@ namespace EPocalipse.Json.Viewer
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JsonViewer));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.spcViewer = new System.Windows.Forms.SplitContainer();
             this.tvJson = new System.Windows.Forms.TreeView();
             this.mnuTree = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -67,7 +68,7 @@ namespace EPocalipse.Json.Viewer
             this.removeSpecialCharsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnViewSelected = new System.Windows.Forms.ToolStripButton();
             this.lblError = new System.Windows.Forms.LinkLabel();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Url_decode = new System.Windows.Forms.TabPage();
             this.lbl_Row = new System.Windows.Forms.Label();
             this.querylist = new System.Windows.Forms.DataGridView();
             this.btn_DeepDecode = new System.Windows.Forms.Button();
@@ -78,6 +79,12 @@ namespace EPocalipse.Json.Viewer
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Decode = new System.Windows.Forms.Button();
             this.txt_RawUrl = new System.Windows.Forms.TextBox();
+            this.Url_View = new System.Windows.Forms.TabPage();
+            this.ddl_item = new System.Windows.Forms.ComboBox();
+            this.txt_GetHTML = new System.Windows.Forms.TextBox();
+            this.GetWebString = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txt_Url = new System.Windows.Forms.TextBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.spcViewer)).BeginInit();
@@ -91,8 +98,9 @@ namespace EPocalipse.Json.Viewer
             this.pageTreeView.SuspendLayout();
             this.pageTextView.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.Url_decode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.querylist)).BeginInit();
+            this.Url_View.SuspendLayout();
             this.SuspendLayout();
             // 
             // spcViewer
@@ -294,7 +302,8 @@ namespace EPocalipse.Json.Viewer
             // 
             this.tabControl.Controls.Add(this.pageTreeView);
             this.tabControl.Controls.Add(this.pageTextView);
-            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.Url_decode);
+            this.tabControl.Controls.Add(this.Url_View);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -469,25 +478,25 @@ namespace EPocalipse.Json.Viewer
             this.lblError.VisitedLinkColor = System.Drawing.Color.Red;
             this.lblError.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblError_LinkClicked);
             // 
-            // tabPage1
+            // Url_decode
             // 
-            this.tabPage1.Controls.Add(this.lbl_Row);
-            this.tabPage1.Controls.Add(this.querylist);
-            this.tabPage1.Controls.Add(this.btn_DeepDecode);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.btn_Sort);
-            this.tabPage1.Controls.Add(this.txt_ToSortUrl);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.btn_Decode);
-            this.tabPage1.Controls.Add(this.txt_RawUrl);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(784, 532);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Query Sort";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.Url_decode.Controls.Add(this.lbl_Row);
+            this.Url_decode.Controls.Add(this.querylist);
+            this.Url_decode.Controls.Add(this.btn_DeepDecode);
+            this.Url_decode.Controls.Add(this.label3);
+            this.Url_decode.Controls.Add(this.label2);
+            this.Url_decode.Controls.Add(this.btn_Sort);
+            this.Url_decode.Controls.Add(this.txt_ToSortUrl);
+            this.Url_decode.Controls.Add(this.label1);
+            this.Url_decode.Controls.Add(this.btn_Decode);
+            this.Url_decode.Controls.Add(this.txt_RawUrl);
+            this.Url_decode.Location = new System.Drawing.Point(4, 22);
+            this.Url_decode.Name = "Url_decode";
+            this.Url_decode.Padding = new System.Windows.Forms.Padding(3);
+            this.Url_decode.Size = new System.Drawing.Size(784, 532);
+            this.Url_decode.TabIndex = 2;
+            this.Url_decode.Text = "Query Sort";
+            this.Url_decode.UseVisualStyleBackColor = true;
             // 
             // lbl_Row
             // 
@@ -502,6 +511,7 @@ namespace EPocalipse.Json.Viewer
             // 
             this.querylist.AllowUserToAddRows = false;
             this.querylist.AllowUserToDeleteRows = false;
+            this.querylist.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Teal;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
@@ -510,13 +520,23 @@ namespace EPocalipse.Json.Viewer
             this.querylist.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.querylist.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.querylist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("ËÎÌו", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.querylist.DefaultCellStyle = dataGridViewCellStyle2;
             this.querylist.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.querylist.Location = new System.Drawing.Point(99, 196);
             this.querylist.Name = "querylist";
-            this.querylist.ReadOnly = true;
             this.querylist.RowTemplate.Height = 23;
+            this.querylist.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.querylist.Size = new System.Drawing.Size(646, 254);
             this.querylist.TabIndex = 9;
+            this.querylist.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.querylist_CellDoubleClick);
             // 
             // btn_DeepDecode
             // 
@@ -558,11 +578,12 @@ namespace EPocalipse.Json.Viewer
             // 
             // txt_ToSortUrl
             // 
-            this.txt_ToSortUrl.Location = new System.Drawing.Point(99, 123);
+            this.txt_ToSortUrl.Location = new System.Drawing.Point(99, 122);
             this.txt_ToSortUrl.Multiline = true;
             this.txt_ToSortUrl.Name = "txt_ToSortUrl";
             this.txt_ToSortUrl.Size = new System.Drawing.Size(555, 67);
             this.txt_ToSortUrl.TabIndex = 3;
+            this.txt_ToSortUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_ToSortUrl_KeyDown);
             // 
             // label1
             // 
@@ -590,6 +611,72 @@ namespace EPocalipse.Json.Viewer
             this.txt_RawUrl.Name = "txt_RawUrl";
             this.txt_RawUrl.Size = new System.Drawing.Size(555, 68);
             this.txt_RawUrl.TabIndex = 0;
+            this.txt_RawUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_RawUrl_KeyDown);
+            // 
+            // Url_View
+            // 
+            this.Url_View.Controls.Add(this.ddl_item);
+            this.Url_View.Controls.Add(this.txt_GetHTML);
+            this.Url_View.Controls.Add(this.GetWebString);
+            this.Url_View.Controls.Add(this.label4);
+            this.Url_View.Controls.Add(this.txt_Url);
+            this.Url_View.Location = new System.Drawing.Point(4, 22);
+            this.Url_View.Name = "Url_View";
+            this.Url_View.Padding = new System.Windows.Forms.Padding(3);
+            this.Url_View.Size = new System.Drawing.Size(784, 532);
+            this.Url_View.TabIndex = 3;
+            this.Url_View.Text = "Url View";
+            this.Url_View.UseVisualStyleBackColor = true;
+            // 
+            // ddl_item
+            // 
+            this.ddl_item.FormattingEnabled = true;
+            this.ddl_item.Items.AddRange(new object[] {
+            "Default",
+            "UTF-8"});
+            this.ddl_item.Location = new System.Drawing.Point(557, 33);
+            this.ddl_item.Name = "ddl_item";
+            this.ddl_item.Size = new System.Drawing.Size(88, 20);
+            this.ddl_item.TabIndex = 4;
+            this.ddl_item.Text = "UTF-8";
+            // 
+            // txt_GetHTML
+            // 
+            this.txt_GetHTML.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.txt_GetHTML.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txt_GetHTML.Location = new System.Drawing.Point(3, 115);
+            this.txt_GetHTML.Multiline = true;
+            this.txt_GetHTML.Name = "txt_GetHTML";
+            this.txt_GetHTML.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txt_GetHTML.Size = new System.Drawing.Size(778, 414);
+            this.txt_GetHTML.TabIndex = 3;
+            this.txt_GetHTML.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_GetHTML_KeyDown);
+            // 
+            // GetWebString
+            // 
+            this.GetWebString.Location = new System.Drawing.Point(669, 31);
+            this.GetWebString.Name = "GetWebString";
+            this.GetWebString.Size = new System.Drawing.Size(94, 23);
+            this.GetWebString.TabIndex = 2;
+            this.GetWebString.Text = "Get";
+            this.GetWebString.UseVisualStyleBackColor = true;
+            this.GetWebString.Click += new System.EventHandler(this.GetWebString_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(24, 37);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "URL :";
+            // 
+            // txt_Url
+            // 
+            this.txt_Url.Location = new System.Drawing.Point(68, 33);
+            this.txt_Url.Name = "txt_Url";
+            this.txt_Url.Size = new System.Drawing.Size(472, 21);
+            this.txt_Url.TabIndex = 0;
             // 
             // JsonViewer
             // 
@@ -613,9 +700,11 @@ namespace EPocalipse.Json.Viewer
             this.pageTextView.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.Url_decode.ResumeLayout(false);
+            this.Url_decode.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.querylist)).EndInit();
+            this.Url_View.ResumeLayout(false);
+            this.Url_View.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -660,7 +749,7 @@ namespace EPocalipse.Json.Viewer
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.ToolStripMenuItem mnuCopyName;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage Url_decode;
         private System.Windows.Forms.Button btn_Sort;
         private System.Windows.Forms.TextBox txt_ToSortUrl;
         private System.Windows.Forms.Label label1;
@@ -671,6 +760,12 @@ namespace EPocalipse.Json.Viewer
         private System.Windows.Forms.Button btn_DeepDecode;
         private System.Windows.Forms.DataGridView querylist;
         private System.Windows.Forms.Label lbl_Row;
+        private System.Windows.Forms.TabPage Url_View;
+        private System.Windows.Forms.Button GetWebString;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txt_Url;
+        private System.Windows.Forms.TextBox txt_GetHTML;
+        private System.Windows.Forms.ComboBox ddl_item;
 
     }
 }

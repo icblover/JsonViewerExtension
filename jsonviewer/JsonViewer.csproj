@@ -77,6 +77,7 @@
     <Compile Include="GridVisualizer.Designer.cs">
       <DependentUpon>GridVisualizer.cs</DependentUpon>
     </Compile>
+    <Compile Include="HttpProc.cs" />
     <Compile Include="InternalPlugins.cs" />
     <Compile Include="JsonObjectTypeConverter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

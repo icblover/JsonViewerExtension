@@ -11,3 +11,16 @@ E:\BaseSite\jsonviewer\JsonView\obj\Debug\JsonView.csproj.GenerateResource.Cache
 E:\BaseSite\jsonviewer\JsonView\obj\Debug\JsonView.exe
 E:\BaseSite\jsonviewer\JsonView\obj\Debug\JsonView.pdb
 E:\BaseSite\jsonviewer\JsonView\bin\debug\JsonView.exe.config
+E:\test project\JsonViewerExtension\JsonView\bin\debug\JsonView.exe.config
+E:\test project\JsonViewerExtension\JsonView\obj\Debug\JsonView.exe
+E:\test project\JsonViewerExtension\JsonView\obj\Debug\JsonView.pdb
+E:\test project\JsonViewerExtension\JsonView\bin\debug\JsonView.exe
+E:\test project\JsonViewerExtension\JsonView\bin\debug\JsonView.pdb
+E:\test project\JsonViewerExtension\JsonView\bin\debug\JsonViewer.dll
+E:\test project\JsonViewerExtension\JsonView\bin\debug\Newtonsoft.Json.dll
+E:\test project\JsonViewerExtension\JsonView\bin\debug\JsonViewer.pdb
+E:\test project\JsonViewerExtension\JsonView\obj\Debug\JsonView.csprojResolveAssemblyReference.cache
+E:\test project\JsonViewerExtension\JsonView\obj\Debug\EPocalipse.Json.JsonView.AboutJsonViewer.resources
+E:\test project\JsonViewerExtension\JsonView\obj\Debug\EPocalipse.Json.JsonView.MainForm.resources
+E:\test project\JsonViewerExtension\JsonView\obj\Debug\EPocalipse.Json.JsonView.Properties.Resources.resources
+E:\test project\JsonViewerExtension\JsonView\obj\Debug\JsonView.csproj.GenerateResource.Cache
