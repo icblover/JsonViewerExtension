@@ -770,6 +770,26 @@ namespace EPocalipse.Json.Viewer
                 txt_GetHTML.SelectAll();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                HttpHelper helper = new HttpHelper();
+                string html = helper.GetHtml(txt_HttpGetUrl.Text.Trim());
+                browser1.DocumentText = html;
+                txt_GetHTML.Text = html;
+                dgv_ResponseList.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                BindingSource bindinfo = new BindingSource();
+                bindinfo.DataSource=helper.GetResponseHeader();                
+                dgv_ResponseList.DataSource = bindinfo;
+                
+            }
+            catch (Exception ex)
+            {
+                browser1.DocumentText = ex.Message;
+            }            
+        }
     }
 
     public struct ErrorDetails
