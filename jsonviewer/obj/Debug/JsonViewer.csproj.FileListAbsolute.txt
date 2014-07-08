@@ -19,4 +19,3 @@ E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\EPocalipse.Json.Viewer.
 E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\JsonViewer.csproj.GenerateResource.Cache
 E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\JsonViewer.dll
 E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\JsonViewer.pdb
-E:\test project\JsonViewerExtension\JsonViewer\obj\Debug\JsonViewer.csprojResolveAssemblyReference.cache
